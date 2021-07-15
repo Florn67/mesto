@@ -2,3 +2,9 @@
     margin-bottom: 41px;
     object-fit: cover;
 }
+
+@media screen and (max-width: 550px) {
+    .header__logo {
+        margin-bottom: 32px;
+    }
+}
