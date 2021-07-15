@@ -1,4 +1,19 @@
 .page {
-    min-width:  320px;
-    max-width: 1280px; 
+    padding: 45px 0 0 0;
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    width: 1280px;
+}
+
+@media screen and (max-width: 1680px) {
+    .page {
+        width: 68.75%;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .page {
+        width: 88%;
+    }
 }
