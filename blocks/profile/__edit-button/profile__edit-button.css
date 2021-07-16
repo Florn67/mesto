@@ -3,11 +3,15 @@
     background-color: black;
     padding: 0;
     height: 24px;
+    width: 24px;
     align-self: flex-end;
+    background-image: url(../../../images/EditButton.png);
+    background-size: cover;
 }
 
 @media screen and (max-width: 900px) {
     .profile__edit-button {
         height: 19px;
+        width: 19px;
     }
 }
