@@ -4,3 +4,7 @@
     margin-bottom: 48px;
     font-family: inherit;
 }
+
+.popup__description:focus {
+    outline-color:black;
+}

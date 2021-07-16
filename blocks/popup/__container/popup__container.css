@@ -1,9 +1,22 @@
 .popup__container {
     position: relative;
+    box-sizing: border-box;
     width: 33%;
     margin: auto;
     z-index: 2;
     background-color: white;
     border-radius: 10px;
     padding: 34px 36px 37px 36px;
+}
+
+@media screen and (max-width: 900px) {
+    .popup__container {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .popup__container {
+        width: 282px;
+    }
 }
