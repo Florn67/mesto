@@ -1,11 +1,10 @@
 .header {
-    border-bottom: 1px solid #545454;
+    border-bottom: 1px solid rgba(84, 84, 84, .7);
 }
 
 @media screen and (max-width: 550px) {
     .header {
-        position: relative;
-        left: -6%;
         width: 112%;
+        align-self: center;
     }
 }

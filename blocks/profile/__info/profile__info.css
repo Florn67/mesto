@@ -1,5 +1,6 @@
 .profile__info {
     width: 336px;
+    width: calc(100% - 120px - 30px - 150px);
     display: flex;
     flex-wrap: wrap;
     margin-left: 30px;
@@ -8,7 +9,7 @@
 
 @media screen and (max-width: 900px) {
     .profile__info {
-        width: 218px;
+        width: calc(100% - 60px - 30px - 100px);
     }
 }
 

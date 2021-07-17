@@ -7,6 +7,6 @@
 
 @media screen and (min-width: 1200px) {
     .elements {
-        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        grid-template-columns: repeat(3, minmax(288px, 1fr));
     }
 }

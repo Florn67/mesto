@@ -5,9 +5,10 @@
     height: 24px;
     width: 24px;
     align-self: flex-end;
-    background-image: url(../../../images/EditButton.png);
+    background-image: url(../../../images/editButton.svg);
     background-size: cover;
     margin-left: 18px;
+    margin-right: auto;
 }
 
 .profile__edit-button:hover {
