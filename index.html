@@ -4,25 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./pages/index.css">
-  <title>Mestro</title>
+  <title>Mesto</title>
 </head>
 <body class="root">
   <div class="popup">
     
     <form class="popup__container">
-      <button class="popup__close-button"></button>
+      <button type="button" class="popup__close-button"></button>
       <h2 class="popup__header">Редактировать профиль</h2>
       <fieldset class="popup__user-info">
-        <input type="text" class="popup__name">
-        <input type="text" class="popup__description">
+        <input type="text" value="Жак-Ив Кусто" class="popup__name">
+        <input type="text" value="Исследователь океана" class="popup__description">
       </fieldset>
-      <button type="file" class="popup__submit">Сохранить</button>
+      <button type="submit" class="popup__submit">Сохранить</button>
     </form>
   </div>
 
   <div class="page">
     <header class="header">
-      <img alt="Логотип" class="header__logo" src="images/logo.svg">
+      <a href="#"><img alt="Логотип" class="header__logo" src="images/logo.svg"></a>
     </header>
      
     <main class="content">
