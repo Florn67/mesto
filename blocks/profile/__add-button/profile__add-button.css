@@ -9,6 +9,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     align-self: center;
+    margin-left: 18px;
 }
 
 .profile__add-button:hover {
@@ -20,6 +21,7 @@
     .profile__add-button {
         width: 100px;
         height: 33px;
+        margin-left: 10px;
     }
 }
 
