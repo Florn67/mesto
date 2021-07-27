@@ -1,10 +1,10 @@
-const closeButton = Array.from(document.querySelectorAll('.popup__close-button'));
+const closeButtons = Array.from(document.querySelectorAll('.popup__close-button'));
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
-const popup = Array.from(document.querySelectorAll('.popup'));
-const form = Array.from(document.querySelectorAll('.popup__container'));
-const nameInput = Array.from(document.querySelectorAll('.popup__input_value_name'));
-const descriptionInput = Array.from(document.querySelectorAll('.popup__input_value_description'));
+const popups = Array.from(document.querySelectorAll('.popup'));
+const forms = Array.from(document.querySelectorAll('.popup__container'));
+const nameInputs = Array.from(document.querySelectorAll('.popup__input_value_name'));
+const descriptionInputs = Array.from(document.querySelectorAll('.popup__input_value_description'));
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 const popupImage = document.querySelector('.popup-image')
@@ -48,9 +48,9 @@ function addCard(descriptionValue, imageSource, key = 'app'){
     cardElement.querySelector('.elements__image').setAttribute('alt', `${descriptionValue}`);
     cardElement.querySelector('.elements__image').setAttribute('src', `${imageSource}`);
     cardElement.querySelector('.elements__description').textContent = descriptionValue;
-    cardElement.querySelector('.elements__button').addEventListener('click', function(evt){
+    cardElement.querySelector('.elements__like-button').addEventListener('click', function(evt){
         const eventTarget = evt.target;
-        eventTarget.classList.toggle('elements__button_liked');
+        eventTarget.classList.toggle('elements__like-button_liked');
     });
 
     deleteButton.addEventListener('click', function(){
@@ -75,13 +75,13 @@ function addCard(descriptionValue, imageSource, key = 'app'){
 }
 
 function openPopup(){
-    nameInput[0].value = profileName.textContent;
-    descriptionInput[0].value = profileDescription.textContent;
-    popup[0].classList.add('popup_opened');
+    nameInputs[0].value = profileName.textContent;
+    descriptionInputs[0].value = profileDescription.textContent;
+    popups[0].classList.add('popup_opened');
 }
 
 function openPopupMesto(){
-    popup[1].classList.add('popup_opened');
+    popups[1].classList.add('popup_opened');
 }
 
 function closePopup(popup){
@@ -94,15 +94,15 @@ function closePopupImage(){
 
 function changeInfo(evt){
     evt.preventDefault();
-    profileName.textContent = nameInput[0].value;
-    profileDescription.textContent = descriptionInput[0].value;
-    closePopup(popup[0]);
+    profileName.textContent = nameInputs[0].value;
+    profileDescription.textContent = descriptionInputs[0].value;
+    closePopup(popups[0]);
 }
 
 function addNewMesto(evt){
     evt.preventDefault();
-    addCard(nameInput[1].value, descriptionInput[1].value, 'prep');
-    closePopup(popup[1]);
+    addCard(nameInputs[1].value, descriptionInputs[1].value, 'prep');
+    closePopup(popups[1]);
 }
 
 function changeLikeButtonColor(evt){
@@ -117,8 +117,8 @@ initialCards.forEach(function(item){
 
 editButton.addEventListener('click', openPopup);
 addButton.addEventListener('click', openPopupMesto)
-closeButton[0].addEventListener('click', () => closePopup(popup[0]));
-closeButton[1].addEventListener('click', () => closePopup(popup[1]));
+closeButtons[0].addEventListener('click', () => closePopup(popups[0]));
+closeButtons[1].addEventListener('click', () => closePopup(popups[1]));
 popupImageCloseButton.addEventListener('click', closePopupImage);
-form[0].addEventListener('submit', changeInfo);
-form[1].addEventListener('submit', addNewMesto);
+forms[0].addEventListener('submit', changeInfo);
+forms[1].addEventListener('submit', addNewMesto);

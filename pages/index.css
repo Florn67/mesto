@@ -19,12 +19,12 @@
 @import url(../blocks/profile/__name/profile__name.css);
 /*elements*/
 @import url(../blocks/elements/elements.css);
-@import url(../blocks/elements/__button/elements__button.css);
+@import url(../blocks/elements/__like-button/elements__like-button.css);
 @import url(../blocks/elements/__description/elements__description.css);
 @import url(../blocks/elements/__element/elements__element.css);
 @import url(../blocks/elements/__image/elements__image.css);
 @import url(../blocks/elements/__line/elements__line.css);
-@import url(../blocks/elements/__button/_liked/elements__button_liked.css);
+@import url(../blocks/elements/__like-button/_liked/elements__button_liked.css);
 @import url(../blocks/elements/__trash-button/elements__trash-button.css);
 /*footer*/
 @import url(../blocks/footer/footer.css);

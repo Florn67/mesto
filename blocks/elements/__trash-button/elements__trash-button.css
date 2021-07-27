@@ -9,3 +9,8 @@
     top: 18px;
     background-color: transparent;
 }
+
+.elements__trash-button:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
