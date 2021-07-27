@@ -1,9 +1,9 @@
-.popup {
+.popup-image {
+    background-color: rgba(0,0,0,.9);
+    width: 100%;
+    height: 100%;
     position: fixed;
     display: flex;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, .5);
     visibility: hidden;
     opacity: 0;
     transition: visibility 0.5s, opacity 0.5s linear;
