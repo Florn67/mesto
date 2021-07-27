@@ -1,9 +1,10 @@
-let closeButton = document.querySelector('.popup__close-button');
+let closeButton = Array.from(document.querySelectorAll('.popup__close-button'));
 let editButton = document.querySelector('.profile__edit-button');
-let popup = document.querySelector('.popup');
-let form = document.querySelector('.popup__container');
-let nameInput = document.querySelector('.popup__input_value_name');
-let descriptionInput = document.querySelector('.popup__input_value_description');
+const addButton = document.querySelector('.profile__add-button');
+let popup = Array.from(document.querySelectorAll('.popup'));
+let form = Array.from(document.querySelectorAll('.popup__container'));
+let nameInput = Array.from(document.querySelectorAll('.popup__input_value_name'));
+let descriptionInput = Array.from(document.querySelectorAll('.popup__input_value_description'));
 let profileName = document.querySelector('.profile__name');
 let profileDescription = document.querySelector('.profile__description');
 
@@ -49,22 +50,28 @@ initialCards.forEach(function(item){
 })
 
 function openPopup(){
-    nameInput.value = profileName.textContent;
-    descriptionInput.value = profileDescription.textContent;
-    popup.classList.add('popup_opened');
+    nameInput[0].value = profileName.textContent;
+    descriptionInput[0].value = profileDescription.textContent;
+    popup[0].classList.add('popup_opened');
 }
 
-function closePopup(){
+function openPopupMesto(){
+    popup[1].classList.add('popup_opened');
+}
+
+function closePopup(popup){
     popup.classList.remove('popup_opened');
 }
 
 function changeInfo(evt){
     evt.preventDefault();
-    profileName.textContent = nameInput.value;
-    profileDescription.textContent = descriptionInput.value;
+    profileName.textContent = nameInput[0].value;
+    profileDescription.textContent = descriptionInput[0].value;
     closePopup();
 }
 
 editButton.addEventListener('click', openPopup);
-closeButton.addEventListener('click', closePopup);
-form.addEventListener('submit', changeInfo);
+addButton.addEventListener('click', openPopupMesto)
+closeButton[0].addEventListener('click', () => closePopup(popup[0]));
+closeButton[1].addEventListener('click', () => closePopup(popup[1]));
+form[0].addEventListener('submit', changeInfo);
