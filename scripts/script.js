@@ -1,10 +1,15 @@
-const closeButtons = Array.from(document.querySelectorAll('.popup__close-button'));
+const closeButtonEdit = document.querySelector('.popup__close-button_type_edit');
+const closeButtonAdd = document.querySelector('.popup__close-button_type_add');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
-const popups = Array.from(document.querySelectorAll('.popup'));
-const forms = Array.from(document.querySelectorAll('.popup__container'));
-const nameInputs = Array.from(document.querySelectorAll('.popup__input_value_name'));
-const descriptionInputs = Array.from(document.querySelectorAll('.popup__input_value_description'));
+const popupEdit = document.querySelector('.popup_type_edit');
+const popupAdd = document.querySelector('.popup_type_add');
+const formEdit = document.querySelector('.popup__form_type_edit');
+const formAdd = document.querySelector('.popup__form_type_add');
+const nameInputEdit = document.querySelector('.popup__input_value_name-edit');
+const nameInputAdd = document.querySelector('.popup__input_value_name-add');
+const descriptionInputEdit = document.querySelector('.popup__input_value_description-edit');
+const descriptionInputAdd = document.querySelector('.popup__input_value_description-add');
 const profileName = document.querySelector('.profile__name');
 const profileDescription = document.querySelector('.profile__description');
 const popupImage = document.querySelector('.popup-image')
@@ -12,41 +17,15 @@ const popupImageSelf = document.querySelector('.popup-image__image');
 const popupImageDescription = document.querySelector('.popup-image__description');
 const popupImageCloseButton = document.querySelector('.popup-image__close-button');
 const cards = document.querySelector('.elements');
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-]; 
+const cardTemplate = document.querySelector('#card-template').content;
 
-function addCard(descriptionValue, imageSource, key = 'app'){
-    const cardTemplate = document.querySelector('#card-template').content;
+function createCard(descriptionValue, imageSource){
     const cardElement = cardTemplate.cloneNode(true);
     const deleteButton = cardElement.querySelector('.elements__trash-button');
     const cardImage = cardElement.querySelector('.elements__image')
 
-    cardElement.querySelector('.elements__image').setAttribute('alt', `${descriptionValue}`);
-    cardElement.querySelector('.elements__image').setAttribute('src', `${imageSource}`);
+    cardImage.setAttribute('alt', `${descriptionValue}`);
+    cardImage.setAttribute('src', `${imageSource}`);
     cardElement.querySelector('.elements__description').textContent = descriptionValue;
     cardElement.querySelector('.elements__like-button').addEventListener('click', function(evt){
         const eventTarget = evt.target;
@@ -66,6 +45,10 @@ function addCard(descriptionValue, imageSource, key = 'app'){
         popupImageDescription.textContent = descriptionValue;
     });
 
+    return cardElement
+}
+
+function addCard(cardElement, key = 'app'){
     if (key==='app'){
         cards.append(cardElement);
     }
@@ -74,51 +57,37 @@ function addCard(descriptionValue, imageSource, key = 'app'){
     }
 }
 
-function openPopup(){
-    nameInputs[0].value = profileName.textContent;
-    descriptionInputs[0].value = profileDescription.textContent;
-    popups[0].classList.add('popup_opened');
-}
-
-function openPopupMesto(){
-    popups[1].classList.add('popup_opened');
+function openPopup(popup){    
+    popup.classList.add('popup_opened');
 }
 
 function closePopup(popup){
     popup.classList.remove('popup_opened');
 }
 
-function closePopupImage(){
-    popupImage.classList.remove('popup-image_opened');
-}
-
-function changeInfo(evt){
-    evt.preventDefault();
-    profileName.textContent = nameInputs[0].value;
-    profileDescription.textContent = descriptionInputs[0].value;
-    closePopup(popups[0]);
-}
-
-function addNewMesto(evt){
-    evt.preventDefault();
-    addCard(nameInputs[1].value, descriptionInputs[1].value, 'prep');
-    closePopup(popups[1]);
-}
-
-function changeLikeButtonColor(evt){
-    console.log('132');
-    const eventTarget = evt.target;
-    console.log(eventTarget.getAttribute('src'));
-}
-
 initialCards.forEach(function(item){
-    addCard(item.name, item.link);
+    addCard(createCard(item.name, item.link));
 })
 
-editButton.addEventListener('click', openPopup);
-addButton.addEventListener('click', openPopupMesto)
-closeButtons[0].addEventListener('click', () => closePopup(popups[0]));
-closeButtons[1].addEventListener('click', () => closePopup(popups[1]));
-popupImageCloseButton.addEventListener('click', closePopupImage);
-forms[0].addEventListener('submit', changeInfo);
-forms[1].addEventListener('submit', addNewMesto);
+editButton.addEventListener('click', function() {
+    nameInputEdit.value = profileName.textContent;
+    descriptionInputEdit.value = profileDescription.textContent;
+    openPopup(popupEdit);
+});
+addButton.addEventListener('click', () => openPopup(popupAdd));
+closeButtonEdit.addEventListener('click', () => closePopup(popupEdit));
+closeButtonAdd.addEventListener('click', () => closePopup(popupAdd));
+popupImageCloseButton.addEventListener('click', closePopup(popupImage));
+formEdit.addEventListener('submit', function(evt){
+    evt.preventDefault();
+    profileName.textContent = nameInputEdit.value;
+    profileDescription.textContent = descriptionInputEdit.value;
+    closePopup(popupEdit);
+});
+formAdd.addEventListener('submit', function(evt){
+    evt.preventDefault();
+    addCard(createCard(nameInputAdd.value, descriptionInputAdd.value), 'prep');
+    nameInputAdd.value = "";
+    descriptionInputAdd.value ="";
+    closePopup(popupAdd);
+});
