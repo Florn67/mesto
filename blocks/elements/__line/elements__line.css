@@ -1,5 +1,6 @@
 .elements__line {
     display: flex;
     justify-content: space-between;
-    margin: 25px 15px 31px 21px;
+    margin-top: auto;
+    padding: 25px 15px 31px 21px;
 }

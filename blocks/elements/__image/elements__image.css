@@ -5,6 +5,10 @@
     height: calc((68.75vw - 17px * 2) / 3);
 }
 
+.elements__image:hover {
+    cursor: pointer;
+    opacity: 0.6;
+}
 @media screen and (max-width: 950px) {
     .elements__image {
         height: calc((68.75vw - 17px) / 2);

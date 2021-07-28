@@ -31,28 +31,28 @@
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
   </div>
-  <div class="popup">
+  <div class="popup popup_type_edit">
     <div class="popup__container">
-      <form class="popup__form" name="popup-form">
-        <button type="button" class="popup__close-button"></button>
+      <form class="popup__form popup__form_type_edit" name="popup-form">
+        <button type="button" class="popup__close-button popup__close-button_type_edit"></button>
         <h2 class="popup__header">Редактировать профиль</h2>
         <fieldset class="popup__user-info">
-          <input type="text" value="Жак-Ив Кусто" class="popup__input popup__input_value_name" name="popup-name">
-          <input type="text" value="Исследователь океана" class="popup__input popup__input_value_description" name="popup-description">
+          <input type="text" value="Жак-Ив Кусто" class="popup__input popup__input_value_name-edit" name="popup-name">
+          <input type="text" value="Исследователь океана" class="popup__input popup__input_value_description-edit" name="popup-description">
         </fieldset>
         <button type="submit" class="popup__submit">Сохранить</button>
       </form>
     </div>
   </div>
 
-  <div class="popup">
+  <div class="popup popup_type_add">
     <div class="popup__container">
-      <form class="popup__form" name="popup-form-mesto">
-        <button type="button" class="popup__close-button"></button>
+      <form class="popup__form popup__form_type_add" name="popup-form-mesto">
+        <button type="button" class="popup__close-button popup__close-button_type_add"></button>
         <h2 class="popup__header">Новое место</h2>
         <fieldset class="popup__user-info">
-          <input type="text" placeholder="Название" class="popup__input popup__input_value_name" name="popup-name-mesto">
-          <input type="text" placeholder="Ссылка на картинку" class="popup__input popup__input_value_description" name="popup-description-mesto">
+          <input type="text" placeholder="Название" class="popup__input popup__input_value_name-add" name="popup-name-mesto">
+          <input type="text" placeholder="Ссылка на картинку" class="popup__input popup__input_value_description-add" name="popup-description-mesto">
         </fieldset>
         <button type="submit" class="popup__submit">Создать</button>
       </form>
@@ -77,6 +77,7 @@
       </div>
     </div>
   </template>
+  <script src="./scripts/initialCards.js"></script>
   <script src="./scripts/script.js"></script>
 </body>
 </html>
