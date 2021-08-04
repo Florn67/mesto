@@ -61,8 +61,12 @@ function openPopup(popup){
     popup.classList.add('popup_opened');
 }
 
-function closePopup(popup){
-    popup.classList.remove('popup_opened');
+function closePopup(popup, key="default"){
+    if (key==='default'){
+        popup.classList.remove('popup_opened');
+    }else{
+        popup.classList.remove('popup-image_opened');
+    }
 }
 
 initialCards.forEach(function(item){
@@ -77,7 +81,7 @@ editButton.addEventListener('click', function() {
 addButton.addEventListener('click', () => openPopup(popupAdd));
 closeButtonEdit.addEventListener('click', () => closePopup(popupEdit));
 closeButtonAdd.addEventListener('click', () => closePopup(popupAdd));
-popupImageCloseButton.addEventListener('click', closePopup(popupImage));
+popupImageCloseButton.addEventListener('click', () => closePopup(popupImage, "image"));
 formEdit.addEventListener('submit', function(evt){
     evt.preventDefault();
     profileName.textContent = nameInputEdit.value;
