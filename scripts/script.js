@@ -58,7 +58,7 @@ function addCard(cardElement, key = 'app'){
     }
 }
 
-function openPopup(popup){    
+function openPopup(popup){
     popup.classList.add('popup_opened');
 }
 
@@ -73,6 +73,33 @@ function closePopup(popup, key="default"){
 initialCards.forEach(function(item){
     addCard(createCard(item.name, item.link));
 })
+
+function keyHandler(evt, popupElement){
+    if (evt.key === "Escape"){
+        if (popupElement.classList.contains('popup-image')){
+            closePopup(popupElement, 'image');    
+        }
+        else{
+            closePopup(popupElement);
+        }
+    }
+}
+
+popups.forEach(function(popupElement){
+    popupElement.addEventListener('click', function(evt){
+        if (evt.target.classList.contains('popup')){
+            closePopup(popupElement);
+        };
+    });
+    popupElement.addEventListener('keydown', function(evt){
+        keyHandler(evt, popupElement);
+    });
+});
+
+popupImage.addEventListener('keydown', function(evt){
+    keyHandler(evt, popupImage);
+});
+
 
 editButton.addEventListener('click', function() {
     nameInputEdit.value = profileName.textContent;
@@ -101,13 +128,6 @@ popupImage.addEventListener('click', function(evt){
         closePopup(popupImage, "image");
     }
 })
-popups.forEach(function(formElement){
-    formElement.addEventListener('click', function(evt){
-        if (evt.target.classList.contains('popup')){
-            closePopup(formElement);
-        };
-    });
-});
 /*form validation*/
 const showInputError = (formElement, inputElement, errorMessage) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
@@ -157,6 +177,28 @@ const setEventListeners = (formElement) => {
             toggleButtonState(inputList, buttonElement);
         });
     });
+    if (formElement.classList.contains('popup__form_type_add')){
+        inputList.forEach((inputElement) => {
+            inputElement.addEventListener('input', function() {
+                setListenerToAdd(inputList)
+            });
+        })
+    }
+}
+
+function setListenerToAdd(inputList){
+      if (hasInvalidInput(inputList)) {
+        popupAdd.removeEventListener('keydown', addCardWithEnter);
+      } else {
+        popupAdd.addEventListener('keydown', addCardWithEnter);
+      }
+}
+
+function addCardWithEnter(evt){
+    if (evt.key === "Enter"){
+        addCard(createCard(nameInputAdd.value, descriptionInputAdd.value), 'prep');
+        closePopup(popupAdd);
+    }
 }
 
 const enableValidation = () => {
