@@ -128,63 +128,6 @@ popupImage.addEventListener('click', function(evt){
         closePopup(popupImage, "image");
     }
 })
-/*form validation*/
-const showInputError = (formElement, inputElement, errorMessage) => {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.add('popup__input_error');
-    errorElement.textContent = errorMessage;
-    errorElement.classList.add('popup__input-error_active');
-};
-
-const hasInvalidInput = (inputList) => {
-    return inputList.some((inputElement) => {
-      return !inputElement.validity.valid;
-    })
-};
-
-const toggleButtonState = (inputList, buttonElement) => {
-    if (hasInvalidInput(inputList)) {
-      buttonElement.classList.add('popup__submit_inactive');
-      buttonElement.setAttribute("disabled", "true");
-    } else {
-      buttonElement.classList.remove('popup__submit_inactive');
-      buttonElement.setAttribute("disabled", "true");
-    }
-}; 
-
-const checkInputValidity = (formElement, inputElement) => {
-    if (!inputElement.validity.valid) {
-        showInputError(formElement, inputElement, inputElement.validationMessage);
-    } else {
-        hideInputError(formElement, inputElement);
-    }
-}
-
-const hideInputError = (formElement, inputElement) => {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove('popup__input_error');
-    errorElement.classList.remove('popup__input-error_active');
-    errorElement.textContent = '';
-};
-
-const setEventListeners = (formElement) => {
-    const inputList = Array.from(formElement.querySelectorAll('.popup__input'));
-    const buttonElement = formElement.querySelector('.popup__submit');
-    toggleButtonState(inputList, buttonElement);
-    inputList.forEach((inputElement) => {
-        inputElement.addEventListener('input', function() {
-            checkInputValidity(formElement, inputElement);
-            toggleButtonState(inputList, buttonElement);
-        });
-    });
-    if (formElement.classList.contains('popup__form_type_add')){
-        inputList.forEach((inputElement) => {
-            inputElement.addEventListener('input', function() {
-                setListenerToAdd(inputList)
-            });
-        })
-    }
-}
 
 function setListenerToAdd(inputList){
       if (hasInvalidInput(inputList)) {
@@ -200,11 +143,3 @@ function addCardWithEnter(evt){
         closePopup(popupAdd);
     }
 }
-
-const enableValidation = () => {
-    const formList = Array.from(document.querySelectorAll('.popup__form'));
-    formList.forEach(function(formElement){
-        setEventListeners(formElement);
-    });
-}
-enableValidation();
