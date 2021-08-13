@@ -132,17 +132,3 @@ popupImage.addEventListener('click', function(evt){
     }
 })
 
-function setListenerToAdd(inputList){
-      if (hasInvalidInput(inputList)) {
-        popupAdd.removeEventListener('keydown', addCardWithEnter);
-      } else {
-        popupAdd.addEventListener('keydown', addCardWithEnter);
-      }
-}
-
-function addCardWithEnter(evt){
-    if (evt.key === "Enter"){
-        addCard(createCard(nameInputAdd.value, descriptionInputAdd.value), 'prep');
-        closePopup(popupAdd);
-    }
-}

@@ -48,13 +48,6 @@ const setEventListeners = (formElement, validationOptions) => {
             toggleButtonState(inputList, buttonElement, validationOptions);
         });
     });
-    if (formElement.classList.contains('popup__form_type_add')){
-        inputList.forEach((inputElement) => {
-            inputElement.addEventListener('input', function() {
-                setListenerToAdd(inputList)
-            });
-        })
-    }
 }
 
 const enableValidation = (validationOptions = {

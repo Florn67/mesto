@@ -8,6 +8,7 @@
     left: calc(100% - 15px * 2);
     top: 18px;
     background-color: transparent;
+    z-index: 1;
 }
 
 .elements__trash-button:hover {
