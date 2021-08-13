@@ -44,6 +44,7 @@ function createCard(descriptionValue, imageSource){
         popupImageSelf.setAttribute('src', eventTarget.getAttribute('src'));
         popupImageSelf.setAttribute('alt', eventTarget.getAttribute('alt'));
         popupImageDescription.textContent = descriptionValue;
+        document.addEventListener('keydown', keyHandler);
     });
 
     return cardElement
@@ -60,6 +61,7 @@ function addCard(cardElement, key = 'app'){
 
 function openPopup(popup){
     popup.classList.add('popup_opened');
+    document.addEventListener('keydown', keyHandler);
 }
 
 function closePopup(popup, key="default"){
@@ -74,15 +76,24 @@ initialCards.forEach(function(item){
     addCard(createCard(item.name, item.link));
 })
 
-function keyHandler(evt, popupElement){
+function keyHandler(evt){
     if (evt.key === "Escape"){
-        if (popupElement.classList.contains('popup-image')){
-            closePopup(popupElement, 'image');    
+        popups.forEach(function(popupElement){
+            if (popupElement.classList.contains('popup_opened')){
+                closePopup(popupElement);
+            }
+        })
+        if (popups.every(function(popupElement){
+            return (!popupElement.classList.contains('popup_opened'))
+        })){
+            closePopup(popupImage, 'image');
         }
-        else{
-            closePopup(popupElement);
-        }
+        removeListenerForKeys();
     }
+}
+
+function removeListenerForKeys(){
+    document.removeEventListener('keydown', keyHandler)
 }
 
 popups.forEach(function(popupElement){
@@ -91,15 +102,7 @@ popups.forEach(function(popupElement){
             closePopup(popupElement);
         };
     });
-    popupElement.addEventListener('keydown', function(evt){
-        keyHandler(evt, popupElement);
-    });
 });
-
-popupImage.addEventListener('keydown', function(evt){
-    keyHandler(evt, popupImage);
-});
-
 
 editButton.addEventListener('click', function() {
     nameInputEdit.value = profileName.textContent;
