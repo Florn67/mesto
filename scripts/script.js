@@ -1,6 +1,4 @@
 const popups = Array.from(document.querySelectorAll('.popup'));
-const closeButtonEdit = document.querySelector('.popup__close-button_type_edit');
-const closeButtonAdd = document.querySelector('.popup__close-button_type_add');
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 const popupEdit = document.querySelector('.popup_type_edit');
@@ -16,7 +14,6 @@ const profileDescription = document.querySelector('.profile__description');
 const popupImage = document.querySelector('.popup-image')
 const popupImageSelf = document.querySelector('.popup-image__image');
 const popupImageDescription = document.querySelector('.popup-image__description');
-const popupImageCloseButton = document.querySelector('.popup-image__close-button');
 const cards = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card-template').content;
 const submitButtonAdd = document.querySelector('.popup__submit_type_add');
@@ -87,6 +84,9 @@ popups.forEach(function(popupElement){
         if (evt.target.classList.contains('popup')){
             closePopup(popupElement);
         };
+        if (evt.target.classList.contains('popup__close-button')){
+            closePopup(popupElement)
+        }
     });
 });
 
@@ -96,9 +96,6 @@ editButton.addEventListener('click', function() {
     openPopup(popupEdit);
 });
 addButton.addEventListener('click', () => openPopup(popupAdd));
-closeButtonEdit.addEventListener('click', () => closePopup(popupEdit));
-closeButtonAdd.addEventListener('click', () => closePopup(popupAdd));
-popupImageCloseButton.addEventListener('click', () => closePopup(popupImage));
 formEdit.addEventListener('submit', function(evt){
     evt.preventDefault();
     profileName.textContent = nameInputEdit.value;
@@ -110,6 +107,7 @@ formAdd.addEventListener('submit', function(evt){
     addCard(createCard(nameInputAdd.value, descriptionInputAdd.value), 'prep');
     nameInputAdd.value = "";
     descriptionInputAdd.value ="";
+    submitButtonAdd.setAttribute("disabled", "true");
+    submitButtonAdd.classList.add('popup__submit_inactive');
     closePopup(popupAdd);
-    submitButtonAdd.setAttribute('disabled');
 });

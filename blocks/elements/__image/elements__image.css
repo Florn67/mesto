@@ -9,6 +9,13 @@
     cursor: pointer;
     opacity: 0.6;
 }
+
+@media screen and (min-width: 1200px) {
+    .elements__image {
+        max-height: 282px;
+    }
+}
+
 @media screen and (max-width: 950px) {
     .elements__image {
         height: calc((68.75vw - 17px) / 2);

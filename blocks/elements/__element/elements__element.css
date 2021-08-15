@@ -4,4 +4,11 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    max-width: 282px;
+}
+
+@media screen and (max-width: 550px) {
+    .elements__element {
+        max-width: 550px;
+    }
 }

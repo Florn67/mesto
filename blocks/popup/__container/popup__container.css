@@ -1,7 +1,7 @@
 .popup__container {
     position: relative;
-    box-sizing: border-box;
-    width: 33%;
+    max-width: 430px;
+    min-width: 282px;
     margin: auto;
     background-color: white;
     border-radius: 10px;
@@ -10,14 +10,8 @@
     cursor: default;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (min-width: 1280px) {
     .popup__container {
-        width: 50%;
-    }
-}
-
-@media screen and (max-width: 550px) {
-    .popup__container {
-        width: 282px;
+        min-width: 430px;
     }
 }
