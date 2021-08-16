@@ -2,7 +2,7 @@
     width: 100%;
     object-fit: cover;
     border-radius: 10px 10px 0 0;
-    height: calc((68.75vw - 17px * 2) / 3);
+    height: calc((880px - 17px - 17px) / 3)
 }
 
 .elements__image:hover {
@@ -10,20 +10,14 @@
     opacity: 0.6;
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (max-width: 845px) {
     .elements__image {
-        max-height: 282px;
-    }
-}
-
-@media screen and (max-width: 950px) {
-    .elements__image {
-        height: calc((68.75vw - 17px) / 2);
+        height: calc((581px - 17px) / 2);
     }
 }
 
 @media screen and (max-width: 550px) {
     .elements__image {
-        height: calc(88vw);
+        height: calc(100vw - 38px);
     }
 }
