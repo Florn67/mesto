@@ -2,7 +2,7 @@
     width: 100%;
     object-fit: cover;
     border-radius: 10px 10px 0 0;
-    height: calc((880px - 17px - 17px) / 3)
+    height: calc((880px - 17px - 17px) / 3);
 }
 
 .elements__image:hover {
