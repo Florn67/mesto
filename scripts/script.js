@@ -21,6 +21,42 @@ const cards = document.querySelector('.elements');
 const cardTemplate = '#card-template';
 const submitButtonAdd = document.querySelector('.popup__submit_type_add');
 
+const initialCards = [
+    {
+      name: 'Архыз',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+    },
+    {
+      name: 'Челябинская область',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+    },
+    {
+      name: 'Иваново',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+    },
+    {
+      name: 'Камчатка',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+    },
+    {
+      name: 'Холмогорский район',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    },
+    {
+      name: 'Байкал',
+      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    }
+]; 
+
+const validationOptions = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__submit',
+    inactiveButtonClass: 'popup__submit_inactive',
+    inputErrorClass: 'popup__input_error',
+    errorClassActive: 'popup__input-error_active'
+}
+
 function addCard(cardElement, key = 'app'){
     setCardImageEventListener(cardElement);
     if (key==='app'){
@@ -98,15 +134,6 @@ formAdd.addEventListener('submit', function(evt){
     submitButtonAdd.classList.add('popup__submit_inactive');
     closePopup(popupAdd);
 });
-
-const validationOptions = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__submit',
-    inactiveButtonClass: 'popup__submit_inactive',
-    inputErrorClass: 'popup__input_error',
-    errorClassActive: 'popup__input-error_active'
-}
 
 Array.from(document.querySelectorAll(validationOptions.formSelector)).forEach(function(formElement){
     new FormValidator(validationOptions, formElement).enableValidation();
