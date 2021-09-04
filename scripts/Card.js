@@ -1,3 +1,4 @@
+import {popupImageSelf, popupImageDescription, openPopup, popupImage} from './script.js'
 class Card{
     constructor(initialCard, cardSelector){
         this._name = initialCard.name;
@@ -8,17 +9,27 @@ class Card{
         return document.querySelector(this._cardSelector).content.cloneNode(true);
     }
     _setAttrubitues(){
-        this._element.querySelector('.elements__image').setAttribute('alt', this._name);
-        this._element.querySelector('.elements__image').setAttribute('src', this._link);
+        this._cardImage = this._element.querySelector('.elements__image');
+        this._cardImage.setAttribute('alt', this._name);
+        this._cardImage.setAttribute('src', this._link);
         this._element.querySelector('.elements__description').textContent = this._name;
     }
     _setEventListeners(){
+        const _this = this
         this._element.querySelector('.elements__like-button').addEventListener('click', function(evt){
             evt.target.classList.toggle('elements__like-button_liked');
         });
         this._element.querySelector('.elements__trash-button').addEventListener('click', function(evt){
             evt.target.closest('.elements__element').remove();
         });
+        this._cardImage.addEventListener('click', function(){            
+                popupImageSelf.setAttribute('src', _this._link);
+                popupImageSelf.setAttribute('alt', _this._name);
+                popupImageDescription.textContent = _this._name;
+                openPopup(popupImage);
+            });
+        
+        
     }
     generateCard(){
         this._element = this._getTemplate();
