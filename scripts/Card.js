@@ -1,4 +1,5 @@
-import {popupImageSelf, popupImageDescription, openPopup, popupImage} from './script.js'
+import {popupImageSelf, popupImageDescription, popupImage} from './utils/constants.js'
+import {openPopup} from './utils/utils.js'
 class Card{
     constructor(initialCard, cardSelector){
         this._name = initialCard.name;
