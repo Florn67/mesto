@@ -1,10 +1,11 @@
 import {popupImageSelf, popupImageDescription, popupImage} from './utils/constants.js'
 import {openPopup} from './utils/utils.js'
 class Card{
-    constructor(initialCard, cardSelector){
+    constructor(initialCard, cardSelector, handleCardClick){
         this._name = initialCard.name;
         this._link = initialCard.link;
         this._cardSelector = cardSelector;
+        this._handleCardClick = handleCardClick;
     }
     _getTemplate() {
         return document.querySelector(this._cardSelector).content.cloneNode(true);
@@ -23,7 +24,8 @@ class Card{
         this._element.querySelector('.elements__trash-button').addEventListener('click', function(evt){
             evt.target.closest('.elements__element').remove();
         });
-        this._cardImage.addEventListener('click', function(){            
+        this._cardImage.addEventListener('click', function(){   
+                //handleCardClick()         
                 popupImageSelf.setAttribute('src', _this._link);
                 popupImageSelf.setAttribute('alt', _this._name);
                 popupImageDescription.textContent = _this._name;
