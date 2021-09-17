@@ -1,19 +1,12 @@
-//import contstants nameInput descriptinInput
+import Popup from './Popup.js';
+import {popupImageSelf, popupImageDescription} from '../scripts/utils/constants.js'
 class PopupWithImage extends Popup{
-    constructor(popup, formSubmit){
-        super(popup);
-        this._formSubmit = formSubmit;
-    }
-    _getInputValues(){
-        return {name: nameInputAdd.value, link: descriptionInputAdd.value}
-    }
-    _setEventListener(){
-        super._setEventListener();
-        //addCard
-    }
-    _close(){
-        super.close();
-        nameInputAdd.value = "";
-        descriptionInputAdd.value ="";
+    open(link, name){
+        popupImageSelf.setAttribute('src', link);
+        popupImageSelf.setAttribute('alt', name);
+        popupImageDescription.textContent = name;
+        super.open()
     }
 }
+
+export default PopupWithImage

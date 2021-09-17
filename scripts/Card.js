@@ -17,22 +17,13 @@ class Card{
         this._element.querySelector('.elements__description').textContent = this._name;
     }
     _setEventListeners(){
-        const _this = this
         this._element.querySelector('.elements__like-button').addEventListener('click', function(evt){
             evt.target.classList.toggle('elements__like-button_liked');
         });
         this._element.querySelector('.elements__trash-button').addEventListener('click', function(evt){
             evt.target.closest('.elements__element').remove();
         });
-        this._cardImage.addEventListener('click', function(){   
-                //handleCardClick()         
-                popupImageSelf.setAttribute('src', _this._link);
-                popupImageSelf.setAttribute('alt', _this._name);
-                popupImageDescription.textContent = _this._name;
-                openPopup(popupImage);
-            });
-        
-        
+        this._cardImage.addEventListener('click', this._handleCardClick);
     }
     generateCard(){
         this._element = this._getTemplate();

@@ -2,6 +2,12 @@ import Card from './Card.js'
 import FormValidator from './FormValidator.js';
 import {openPopup, closePopup} from './utils/utils.js'
 
+import Popup from '../../components/Popup.js'
+import PopupWithImage from '../../components/PopupWithImage.js'
+import Section from '../../components/Section.js'
+import UserInfo from '../../components/UserInfo.js'
+import PopupWithForm from '../components/PopupWithForm.js';
+
 const popups = Array.from(document.querySelectorAll('.popup'));
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
@@ -32,26 +38,15 @@ const validationOptions = {
 
 const addCardFormValidator = new FormValidator(validationOptions, formAdd);
 const editProfileFormValidator  = new FormValidator(validationOptions, formEdit);
+const cardsList = new Section({items: initialCards, renderer: (item) => {
+    const cardElement = new Card(item, cardTemplate, () => {new PopupWithImage('.popup-image').open( item.link, item.name) }).generateCard()
+    cardsList.setItem(cardElement)
+}},'.elements')
+
 
 addCardFormValidator.enableValidation();
 editProfileFormValidator.enableValidation();
-
-function addCard(cardElement, key = 'append'){
-    if (key==='append'){
-        cards.append(cardElement);
-    }
-    if (key==='prepend'){
-        cards.prepend(cardElement);
-    }
-}
-
-function createCard(initialCard, cardSelector){
-    return new Card(initialCard, cardSelector).generateCard()
-}
-
-initialCards.forEach(function(item){
-    addCard(createCard(item, cardTemplate));
-})
+cardsList.renderItems();
 
 popups.forEach(function(popupElement){
     popupElement.addEventListener('click', function(evt){
@@ -82,7 +77,11 @@ formEdit.addEventListener('submit', function(evt){
 });
 formAdd.addEventListener('submit', function(evt){
     evt.preventDefault();
-    addCard(createCard({name: nameInputAdd.value, link: descriptionInputAdd.value}, cardTemplate), 'prepend');
+    const newCard = new Section({items: [{name: nameInputAdd.value, link: descriptionInputAdd.value}], renderer: (item) => {
+        const cardElement = new Card(item, cardTemplate).generateCard()
+        newCard.setItem(cardElement, 'prepend')
+    }},'.elements')
+    newCard.renderItems();
     nameInputAdd.value = "";
     descriptionInputAdd.value ="";
     addCardFormValidator.disableSubmitButton()

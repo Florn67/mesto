@@ -11,3 +11,5 @@ class UserInfo{
         this._infoElement.value = info;
     }
 }
+
+export default UserInfo

@@ -10,8 +10,15 @@ class Section{
           this._renderer(item);
         });
     }
-    setItem(element) {
-        this._container.append(element);
+    setItem(element, key = 'append'){
+      if (key==='append'){
+          this._container.append(element);
+      }
+      if (key==='prepend'){
+          this._container.prepend(element);
+      }
       }
 
 }
+
+export default Section
