@@ -12,16 +12,17 @@ class Popup{
     }
     _handleEscClose(evt){
         if (evt.key === "Escape"){    
-            this._close(this._popup);
+            this.close(this._popup);
         }
     }
     setEventListeners(){
+        let _this = this
         this._popup.addEventListener('click', function(evt){
             if (evt.target.classList.contains('popup')){
-                closePopup();
+                _this.close();
             };
             if (evt.target.classList.contains('popup__close-button')){
-                closePopup()
+                _this.close();
             }
         });
     }

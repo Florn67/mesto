@@ -1,21 +1,24 @@
-//import contstants nameInput descriptinInput
+import {nameInputAdd, descriptionInputAdd} from '../scripts/utils/constants.js'
 import Popup from './Popup.js'
 class PopupWithForm extends Popup{
     constructor(popup, formSubmit){
         super(popup);
-        this._formSubmit = formSubmit;
+        this._formSubmit = formSubmit.bind(this);
     }
     _getInputValues(){
         return {name: nameInputAdd.value, link: descriptionInputAdd.value}
     }
-    _setEventListener(){
-        super._setEventListener();
-        //addCard
+    setEventListeners(){
+        super.setEventListeners();
+        
+        this._popup.querySelector('form').addEventListener('submit', this._formSubmit)
     }
-    _close(){
+    close(key){
         super.close();
-        nameInputAdd.value = "";
-        descriptionInputAdd.value ="";
+        if (key=='add'){
+            nameInputAdd.value = "";
+            descriptionInputAdd.value ="";
+        }
     }
 }
 
