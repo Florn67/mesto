@@ -1,5 +1,5 @@
 import Popup from './Popup.js';
-import {popupImageSelf, popupImageDescription} from '../scripts/utils/constants.js'
+import {popupImageSelf, popupImageDescription} from '../utils/constants.js'
 class PopupWithImage extends Popup{
     open(link, name){
         popupImageSelf.setAttribute('src', link);

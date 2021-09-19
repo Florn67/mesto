@@ -1,31 +1,18 @@
-import Card from './Card.js'
-import FormValidator from './FormValidator.js';
-import {openPopup, closePopup} from './utils/utils.js'
+import './pages/index.css'
 
-import PopupWithImage from '../../components/PopupWithImage.js'
-import Section from '../../components/Section.js'
-import UserInfo from '../../components/UserInfo.js'
-import PopupWithForm from '../components/PopupWithForm.js';
-
-const editButton = document.querySelector('.profile__edit-button');
-const addButton = document.querySelector('.profile__add-button');
-const formEdit = document.querySelector('.popup__form_type_edit');
-const formAdd = document.querySelector('.popup__form_type_add');
-const nameInputEdit = document.querySelector('.popup__input_value_name-edit');
-const nameInputAdd = document.querySelector('.popup__input_value_name-add');
-const descriptionInputEdit = document.querySelector('.popup__input_value_description-edit');
-const descriptionInputAdd = document.querySelector('.popup__input_value_description-add');
-const cardTemplate = '#card-template';
+import Card from './components/Card.js'
+import FormValidator from './components/FormValidator.js';
 
 
-const validationOptions = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__submit',
-    inactiveButtonClass: 'popup__submit_inactive',
-    inputErrorClass: 'popup__input_error',
-    errorClassActive: 'popup__input-error_active'
-}
+import PopupWithImage from './components/PopupWithImage.js'
+import Section from './components/Section.js'
+import UserInfo from './components/UserInfo.js'
+import PopupWithForm from './components/PopupWithForm.js';
+
+import {initialCards} from './utils/constants.js'
+
+
+import {editButton, addButton, formEdit, formAdd, nameInputEdit, nameInputAdd, descriptionInputEdit, descriptionInputAdd, cardTemplate, validationOptions} from './utils/constants.js'
 
 const addCardFormValidator = new FormValidator(validationOptions, formAdd);
 const editProfileFormValidator  = new FormValidator(validationOptions, formEdit);

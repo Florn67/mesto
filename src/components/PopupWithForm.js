@@ -1,4 +1,4 @@
-import {nameInputAdd, descriptionInputAdd} from '../scripts/utils/constants.js'
+import {nameInputAdd, descriptionInputAdd} from '../utils/constants.js'
 import Popup from './Popup.js'
 class PopupWithForm extends Popup{
     constructor(popup, formSubmit){
