@@ -1,4 +1,4 @@
-const popupImage = document.querySelector('.popup-image')
+const popupImage = document.querySelector('.popup-image');
 const popupImageSelf = document.querySelector('.popup-image__image');
 const popupImageDescription = document.querySelector('.popup-image__description');
 const nameInputAdd = document.querySelector('.popup__input_value_name-add');

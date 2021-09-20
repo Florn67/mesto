@@ -10,7 +10,7 @@ class Section{
           this._renderer(item);
         });
     }
-    setItem(element, key = 'append'){
+    addItem(element, key = 'append'){
       if (key==='append'){
           this._container.append(element);
       }
