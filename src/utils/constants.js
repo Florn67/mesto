@@ -1,8 +1,6 @@
 const popupImage = document.querySelector('.popup-image');
 const popupImageSelf = document.querySelector('.popup-image__image');
 const popupImageDescription = document.querySelector('.popup-image__description');
-const nameInputAdd = document.querySelector('.popup__input_value_name-add');
-const descriptionInputAdd = document.querySelector('.popup__input_value_description-add');
 
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
@@ -48,4 +46,4 @@ const validationOptions = {
 };
 
 export {popupImage, initialCards, popupImageSelf, popupImageDescription,editButton, addButton, formEdit,
-     formAdd, nameInputEdit, nameInputAdd, descriptionInputEdit, descriptionInputAdd, cardTemplate, validationOptions}
+     formAdd, nameInputEdit, descriptionInputEdit, cardTemplate, validationOptions}

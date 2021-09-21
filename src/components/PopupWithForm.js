@@ -1,23 +1,28 @@
-import {nameInputAdd, descriptionInputAdd} from '../utils/constants.js'
 import Popup from './Popup.js'
 class PopupWithForm extends Popup{
-    constructor(popup, formSubmit){
-        super(popup);
+    constructor(popupSelector, formSubmit){
+        super(popupSelector);
         this._formSubmit = formSubmit.bind(this);
+        this._formElement = this._popup.querySelector('form');
+        this._inputList = this._popup.querySelectorAll('.popup__input');
     }
     _getInputValues(){
-        return {name: nameInputAdd.value, link: descriptionInputAdd.value}
+        const data = {};
+        this._inputList.forEach((input) => {
+            data[input.name] = input.value;
+        });
+        return data;
     }
     setEventListeners(){
         super.setEventListeners();
-        this._popup.querySelector('form').addEventListener('submit', this._formSubmit)
+        this._formElement.addEventListener('submit', (evt) =>{
+            evt.preventDefault();
+            this._formSubmit(this._getInputValues())
+        });
     }
-    close(key){
+    close(){
         super.close();
-        if (key=='add'){
-            nameInputAdd.value = "";
-            descriptionInputAdd.value ="";
-        }
+        this._formElement.reset();
     }
 }
 

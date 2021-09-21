@@ -76,9 +76,7 @@ class FormValidator{
         this._inputList.forEach((inputElement) => {
             this._hideInputError(inputElement)
         });
-        if (this._formElement.classList.contains('popup__form_type_edit')){
-            this._toggleButtonState(this._inputList, this._buttonElement)
-        }
+        this._toggleButtonState(this._inputList, this._buttonElement)
     }
 
 }
