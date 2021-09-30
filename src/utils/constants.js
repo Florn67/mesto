@@ -10,32 +10,7 @@ const nameInputEdit = document.querySelector('.popup__input_value_name-edit');
 const descriptionInputEdit = document.querySelector('.popup__input_value_description-edit');
 const cardTemplate = '#card-template';
 
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-];
+
 const validationOptions = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
@@ -45,5 +20,5 @@ const validationOptions = {
     errorClassActive: 'popup__input-error_active'
 };
 
-export {popupImage, initialCards, popupImageSelf, popupImageDescription,editButton, addButton, formEdit,
+export {popupImage, popupImageSelf, popupImageDescription,editButton, addButton, formEdit,
      formAdd, nameInputEdit, descriptionInputEdit, cardTemplate, validationOptions}

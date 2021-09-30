@@ -6,7 +6,8 @@
     border: 0;
     padding: 0;
     align-self: center;
-    margin-left: 33px;
+    margin-left: 0;
+    /* 33px */
     background-color: transparent;
 }
 

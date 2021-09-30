@@ -1,12 +1,16 @@
 class Card{
-    constructor(initialCard, cardSelector, handleCardClick){
+    constructor(initialCard, cardSelector, likeCount, handleCardClick){
         this._name = initialCard.name;
         this._link = initialCard.link;
         this._cardSelector = cardSelector;
         this._handleCardClick = handleCardClick;
+        this._likeCount = likeCount;
     }
     _getTemplate() {
         return document.querySelector(this._cardSelector).content.cloneNode(true);
+    }
+    _setLikes(){
+        this._element.querySelector('.elements__like-counter').textContent = this._likeCount
     }
     _setAttrubitues(){
         this._cardImage = this._element.querySelector('.elements__image');
@@ -27,7 +31,7 @@ class Card{
         this._element = this._getTemplate();
         this._setAttrubitues();
         this._setEventListeners();
-
+        this._setLikes()
         return this._element;
     }
 }
