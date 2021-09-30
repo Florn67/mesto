@@ -81,6 +81,21 @@ class Api{
             console.log(err); 
         });  
    }
+   deleteCard(id){
+       fetch(`${this._baseUrl}/cards/${id}`, {
+        method: 'DELETE',
+        headers: this._headers
+        }) 
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+            return Promise.reject(`Ошибка: ${res.status}`);
+        })
+        .catch((err) => {
+            console.log(err); 
+        });  
+   }
 }
 
 export default Api

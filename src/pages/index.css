@@ -50,3 +50,6 @@
 @import url(../blocks/popup-image/__close-button/popup-image__close-button.css);
 @import url(../blocks/popup-image/__description/popup-image__description.css);
 @import url(../blocks/popup-image/__image/popup-image__image.css);
+/*popup-delete*/
+@import url(../blocks/popup-delete/__button/popup-delete__button.css);
+@import url(../blocks/popup-delete/__text/popup-delete__text.css);

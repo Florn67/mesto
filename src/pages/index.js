@@ -7,6 +7,7 @@ import Section from '../components/Section.js'
 import UserInfo from '../components/UserInfo.js'
 import PopupWithForm from '../components/PopupWithForm.js'
 import Api from '../components/Api.js'
+import PopupWithConfirm from '../components/PopupWithConfirm.js'
 
 import {editButton, addButton, formEdit, formAdd, nameInputEdit, descriptionInputEdit, cardTemplate, validationOptions} from '../utils/constants.js';
 
@@ -22,11 +23,18 @@ const addCardFormValidator = new FormValidator(validationOptions, formAdd);
 const editProfileFormValidator  = new FormValidator(validationOptions, formEdit);
 const userInfoMethods = new UserInfo({nameSelector: '.profile__name', infoSelector: '.profile__description'});
 const popupTypeImage = new PopupWithImage('.popup-image');
+
 popupTypeImage.setEventListeners();
 
-function createCard(item, count) {
-    const cardElement = new Card(item, cardTemplate, count, () => {popupTypeImage.open( item.link, item.name) })
-    cardElement
+
+function createCard(item) {
+    const cardElement = new Card({name: item.name, link: item.link}, cardTemplate, item.likes.length, () => {popupTypeImage.open( item.link, item.name) }, (evt) => {
+      const deletingCard = evt.target.closest('.elements__element');
+      const popupTypeDelete = new PopupWithConfirm('.popup-delete', () => { deletingCard.remove(); api.deleteCard(item._id)})
+      popupTypeDelete.setEventListeners()
+      popupTypeDelete.open()
+    }, item.owner.name, userInfoMethods.getUserInfo().name)
+
     return cardElement.generateCard();
   } 
 
@@ -35,9 +43,7 @@ const cardsList = new Section({items: initialCards, renderer: (item) => {
 }},'.elements');
 
 api.getCards().then(res => {res.forEach(item => {
-  cardsList.addItem(createCard({name: item.name, link: item.link}, item.likes.length), 'append');
-  console.log(item)
-
+  cardsList.addItem(createCard(item), 'append');
 })})
 
 const popupTypeEdit = new PopupWithForm('.popup_type_edit', ({popupName, popupDescription}) => {
@@ -46,7 +52,7 @@ const popupTypeEdit = new PopupWithForm('.popup_type_edit', ({popupName, popupDe
     popupTypeEdit.close();
 })
 const popupTypeAdd = new PopupWithForm('.popup_type_add', ({popupNameMesto, popupLinkMesto}) => {
-    cardsList.addItem(createCard({name: popupNameMesto, link: popupLinkMesto}), 'prepend')
+    cardsList.addItem(createCard({name: popupNameMesto, link: popupLinkMesto, likes: [], owner: {name: userInfoMethods.getUserInfo().name}}), 'prepend')
     api.postNewCard(popupNameMesto, popupLinkMesto)
     addCardFormValidator.disableSubmitButton();
     popupTypeAdd.close();
