@@ -9,7 +9,7 @@ import PopupWithForm from '../components/PopupWithForm.js'
 import Api from '../components/Api.js'
 import PopupWithConfirm from '../components/PopupWithConfirm.js'
 
-import {editButton, addButton, formEdit, formAdd, nameInputEdit, descriptionInputEdit, cardTemplate, validationOptions} from '../utils/constants.js';
+import {editButton, addButton, formEdit, formAdd, nameInputEdit, descriptionInputEdit, cardTemplate, validationOptions, editAvatarButton, formAvatar} from '../utils/constants.js';
 
 let initialCards = []
 const api = new Api({
@@ -21,7 +21,8 @@ const api = new Api({
 });
 const addCardFormValidator = new FormValidator(validationOptions, formAdd);
 const editProfileFormValidator  = new FormValidator(validationOptions, formEdit);
-const userInfoMethods = new UserInfo({nameSelector: '.profile__name', infoSelector: '.profile__description'});
+const editAvatarValidator = new FormValidator(validationOptions, formAvatar);
+const userInfoMethods = new UserInfo({nameSelector: '.profile__name', infoSelector: '.profile__description'}, '.profile', () => {});
 const popupTypeImage = new PopupWithImage('.popup-image');
 
 popupTypeImage.setEventListeners();
@@ -69,10 +70,20 @@ const popupTypeAdd = new PopupWithForm('.popup_type_add', ({popupNameMesto, popu
     addCardFormValidator.disableSubmitButton();
     popupTypeAdd.close();
 })
+const popupTypeAvatar = new PopupWithForm('.popup_type_avatar', ({popupLinkAvatar}) => {
+  userInfoMethods.setAvatar(popupLinkAvatar);
+  api.patchAvatar(popupLinkAvatar);
+  popupTypeAvatar.close()
+})
+
+
 popupTypeEdit.setEventListeners();
 popupTypeAdd.setEventListeners();
+popupTypeAvatar.setEventListeners();
+
 addCardFormValidator.enableValidation();
 editProfileFormValidator.enableValidation();
+editAvatarValidator.enableValidation();
 cardsList.renderItems();
 
 editButton.addEventListener('click', function() {
@@ -86,6 +97,11 @@ addButton.addEventListener('click', function(){
     addCardFormValidator.hideAllErrors();
     popupTypeAdd.open();
 });
-
+editAvatarButton.addEventListener('click', function(){
+  popupTypeAvatar.open()
+})
  
-api.getUserInfo().then(res => {userInfoMethods.setUserInfo(res)})
+api.getUserInfo().then(res => {
+  userInfoMethods.setUserInfo({name: res.name, about: res.about})
+  userInfoMethods.setAvatar(res.avatarUrl)
+})

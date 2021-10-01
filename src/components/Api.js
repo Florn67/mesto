@@ -11,15 +11,33 @@ class Api{
                 if (res.ok) {
                     return res.json();
                 }
-                return Promise.reject(`Ошибка: ${res.status}`);
+                return Promise.reject(`Ошибка запроса getUserInfo: ${res.status}`);
             })
             .then((result) => {
-                return {name: result.name, about: result.about}
+                return {name: result.name, about: result.about, avatarUrl: result.avatar}
             })
             .catch((err) => {
                 console.log(err); 
             }); 
         
+    }
+    patchAvatar(avatarUrl){
+        fetch(`${this._baseUrl}/users/me/avatar`, {
+            method: 'PATCH',
+            headers: this._headers,
+            body: JSON.stringify({
+                avatar: avatarUrl
+            })
+        }) 
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка запроса patchAvatar: ${res.status}`);
+            })
+            .catch((err) => {
+                console.log(err); 
+            });  
     }
     getCards(){
         return fetch(`${this._baseUrl}/cards`, {
@@ -29,7 +47,7 @@ class Api{
                 if (res.ok) {
                     return res.json();
                 }
-                return Promise.reject(`Ошибка: ${res.status}`);
+                return Promise.reject(`Ошибка запроса getCards: ${res.status}`);
             })
             .then((result) => {
                 const initialCards = [];
@@ -58,7 +76,7 @@ class Api{
                 if (res.ok) {
                     return res.json();
                 }
-                return Promise.reject(`Ошибка: ${res.status}`);
+                return Promise.reject(`Ошибка запроса patchUserInfo: ${res.status}`);
             })
             .catch((err) => {
                 console.log(err); 
@@ -77,7 +95,7 @@ class Api{
             if (res.ok) {
                 return res.json();
             }
-            return Promise.reject(`Ошибка: ${res.status}`);
+            return Promise.reject(`Ошибка запроса postNewCard: ${res.status}`);
         })
         .catch((err) => {
             console.log(err); 
@@ -92,7 +110,7 @@ class Api{
             if (res.ok) {
                 return res.json();
             }
-            return Promise.reject(`Ошибка: ${res.status}`);
+            return Promise.reject(`Ошибка запроса deleteCard: ${res.status}`);
         })
         .catch((err) => {
             console.log(err); 
@@ -108,7 +126,7 @@ class Api{
                 if (res.ok) {
                     return res.json();
                 }
-                return Promise.reject(`Ошибка: ${res.status}`);
+                return Promise.reject(`Ошибка запроса putLike: ${res.status}`);
             })
             .catch((err) => {
                 console.log(err); 
@@ -123,7 +141,7 @@ class Api{
                 if (res.ok) {
                     return res.json();
                 }
-                return Promise.reject(`Ошибка: ${res.status}`);
+                return Promise.reject(`Ошибка запроса deleteLike: ${res.status}`);
             })
             .catch((err) => {
                 console.log(err); 

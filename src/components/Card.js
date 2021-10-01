@@ -49,7 +49,6 @@ class Card{
         }
     }
     generateCard(){
-        console.log(this._liked)
         this._element = this._getTemplate();
         this._setAttrubitues();
         this._setEventListeners();
