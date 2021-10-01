@@ -28,13 +28,24 @@ popupTypeImage.setEventListeners();
 
 
 function createCard(item) {
-    const cardElement = new Card({name: item.name, link: item.link}, cardTemplate, item.likes.length, () => {popupTypeImage.open( item.link, item.name) }, (evt) => {
+    
+    const cardElement = new Card({name: item.name, link: item.link}, cardTemplate, item, () => {popupTypeImage.open( item.link, item.name) }, (evt) => {
       const deletingCard = evt.target.closest('.elements__element');
       const popupTypeDelete = new PopupWithConfirm('.popup-delete', () => { deletingCard.remove(); api.deleteCard(item._id)})
       popupTypeDelete.setEventListeners()
       popupTypeDelete.open()
-    }, item.owner.name, userInfoMethods.getUserInfo().name)
-
+    }, userInfoMethods.getUserInfo().name,
+    
+    
+    (liked) => {if(liked){
+      api.deleteLike(item._id)
+      return false
+    }else{
+      api.putLike(item._id)
+      return true
+    }}
+    )
+    
     return cardElement.generateCard();
   } 
 
@@ -44,6 +55,7 @@ const cardsList = new Section({items: initialCards, renderer: (item) => {
 
 api.getCards().then(res => {res.forEach(item => {
   cardsList.addItem(createCard(item), 'append');
+  
 })})
 
 const popupTypeEdit = new PopupWithForm('.popup_type_edit', ({popupName, popupDescription}) => {

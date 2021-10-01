@@ -35,7 +35,9 @@ class Api{
                 const initialCards = [];
                 result.forEach(item => {
                     initialCards.push(item)
+                 
                 })
+                
                 return initialCards
             })
             .catch((err) => {
@@ -96,6 +98,37 @@ class Api{
             console.log(err); 
         });  
    }
+  
+   putLike(id){
+        fetch(`${this._baseUrl}/cards/likes/${id}`, {
+            method: 'PUT',
+            headers: this._headers
+            }) 
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
+            })
+            .catch((err) => {
+                console.log(err); 
+            });  
+    }
+    deleteLike(id){
+        fetch(`${this._baseUrl}/cards/likes/${id}`, {
+            method: 'DELETE',
+            headers: this._headers
+            }) 
+            .then(res => {
+                if (res.ok) {
+                    return res.json();
+                }
+                return Promise.reject(`Ошибка: ${res.status}`);
+            })
+            .catch((err) => {
+                console.log(err); 
+            });  
+    }
 }
 
 export default Api
