@@ -11,8 +11,6 @@ import PopupWithConfirm from '../components/PopupWithConfirm.js'
 
 import {editButton, addButton, formEdit, formAdd, nameInputEdit, descriptionInputEdit, cardTemplate, validationOptions, editAvatarButton, formAvatar} from '../utils/constants.js';
 
-let initialCards = []
-
 const addCardFormValidator = new FormValidator(validationOptions, formAdd);
 const editProfileFormValidator  = new FormValidator(validationOptions, formEdit);
 const editAvatarValidator = new FormValidator(validationOptions, formAvatar);
@@ -29,24 +27,24 @@ const api = new Api({
 
 popupTypeImage.setEventListeners();
 
-
 function createCard(item) {
-    const cardElement = new Card({name: item.name, link: item.link}, cardTemplate, item, () => {popupTypeImage.open( item.link, item.name) }, (evt) => {
-      const deletingCard = evt.target.closest('.elements__element');
-      const popupTypeDelete = new PopupWithConfirm('.popup-delete', () => { deletingCard.remove(); api.deleteCard(item._id)})
-      popupTypeDelete.setEventListeners()
-      popupTypeDelete.open()
-    }, userInfoMethods.getUserInfo().name,
-
-    (liked) => {if(liked){
-      api.deleteLike(item._id)
-      return false
-    }else{
-      api.putLike(item._id)
-      return true
-    }}
+    const cardElement = new Card({name: item.name, link: item.link}, cardTemplate, item, 
+      () => {popupTypeImage.open( item.link, item.name) }, 
+      (evt) => {
+        const deletingCard = evt.target.closest('.elements__element');
+        const popupTypeDelete = new PopupWithConfirm('.popup-delete', () => { deletingCard.remove(); api.deleteCard(item._id)})
+        popupTypeDelete.setEventListeners()
+        popupTypeDelete.open()
+      }, 
+      userInfoMethods.getUserInfo().name,
+        (liked) => {if(liked){
+          api.deleteLike(item._id)
+          return false
+        }else{
+          api.putLike(item._id)
+          return true
+      }}
     )
-    
     return cardElement.generateCard();
   } 
 
@@ -57,20 +55,15 @@ function handleWaitForFetch(popupType, wait){
   }
 }
 
-const cardsList = new Section({items: initialCards, renderer: (item) => {
-    cardsList.addItem(createCard(item))
-}},'.elements');
-
-api.getCards().then(res => {res.forEach(item => {
-  cardsList.addItem(createCard(item), 'append');
-})})
+const cardsList = new Section(() => {
+    api.getCards().then(res => {res.forEach(item => {cardsList.addItem(createCard(item))})})
+},'.elements');
 
 const popupTypeEdit = new PopupWithForm('.popup_type_edit', ({popupName, popupDescription}) => {
     userInfoMethods.setUserInfo({name: popupName, about: popupDescription});
     api.patchUserInfo(popupName, popupDescription, (wait) => {handleWaitForFetch(popupTypeEdit, wait)})
 })
 const popupTypeAdd = new PopupWithForm('.popup_type_add', ({popupNameMesto, popupLinkMesto}) => {
-    // cardsList.addItem(createCard({name: popupNameMesto, link: popupLinkMesto, likes: [], owner: {name: userInfoMethods.getUserInfo().name}}), 'prepend')
     api.postNewCard(popupNameMesto, popupLinkMesto, (wait) => {handleWaitForFetch(popupTypeAdd, wait)
      if(!wait){
       api.getCards().then(res => {res.forEach(item => {
@@ -85,11 +78,10 @@ const popupTypeAdd = new PopupWithForm('.popup_type_add', ({popupNameMesto, popu
 const popupTypeAvatar = new PopupWithForm('.popup_type_avatar', ({popupLinkAvatar}) => {
   userInfoMethods.setAvatar(popupLinkAvatar);
   api.patchAvatar(popupLinkAvatar, (wait) => {
-    handleWaitForFetch(popupTypeAvatar, wait)
+    handleWaitForFetch(popupTypeAvatar, wait);
   });
   
 })
-
 
 popupTypeEdit.setEventListeners();
 popupTypeAdd.setEventListeners();
@@ -112,10 +104,10 @@ addButton.addEventListener('click', function(){
     popupTypeAdd.open();
 });
 editAvatarButton.addEventListener('click', function(){
-  popupTypeAvatar.open()
+  popupTypeAvatar.open();
 })
  
 api.getUserInfo().then(res => {
-  userInfoMethods.setUserInfo({name: res.name, about: res.about})
-  userInfoMethods.setAvatar(res.avatarUrl)
+  userInfoMethods.setUserInfo({name: res.name, about: res.about});
+  userInfoMethods.setAvatar(res.avatarUrl);
 })

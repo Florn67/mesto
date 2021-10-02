@@ -14,7 +14,7 @@
      
     <main class="content">
       <section class="profile">
-        <img alt="Аватар" class="profile__avatar" src="<%=require('./images/Avatar.jpg')%>">
+        <img alt="Аватар" class="profile__avatar">
         <div class="profile__avatar-edit-container"></div>
         <div class="profile__info">
           <h1 class="profile__name"></h1>
@@ -37,9 +37,9 @@
         <button type="button" class="popup__close-button popup__close-button_type_edit"></button>
         <h2 class="popup__header">Редактировать профиль</h2>
         <fieldset class="popup__user-info">
-          <input id="name-input" type="text" value="Жак-Ив Кусто" class="popup__input popup__input_value_name-edit" name="popupName" required minlength="2" maxlength="40">
+          <input id="name-input" type="text" class="popup__input popup__input_value_name-edit" name="popupName" required minlength="2" maxlength="40">
           <span class="name-input-error popup__input-error"></span>
-          <input id="about-input" type="text" value="Исследователь океана" class="popup__input popup__input_value_description-edit" name="popupDescription" required minlength="2" maxlength="200">
+          <input id="about-input" type="text" class="popup__input popup__input_value_description-edit" name="popupDescription" required minlength="2" maxlength="200">
           <span class="about-input-error popup__input-error"></span>
         </fieldset>
         <button type="submit" class="popup__submit">Сохранить</button>
@@ -90,7 +90,6 @@
       <p class="popup-delete__text">Вы уверены?</p>
       <button type="button" class="popup__close-button popup-delete__close-button"></button>
       <button type="button" class="popup-delete__button">Да</button>
-    </div>
     </div>
   </div>
 

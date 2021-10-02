@@ -9,6 +9,6 @@
     outline:none;
 }
 
-.popup__input:last-child {
+.popup__input:last-of-type {
     margin-bottom: 48px;
 }
