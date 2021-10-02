@@ -10,4 +10,4 @@
 * Есть функция валидации форм.
 * Установлены 'слушатели' для таких клавиш как Enter или Esc
 ### Ссылка на сайт
-* https://florn67.github.io/mesto/index.html
+* https://florn67.github.io/mesto
