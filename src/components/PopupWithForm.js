@@ -5,6 +5,7 @@ class PopupWithForm extends Popup{
         this._formSubmit = formSubmit.bind(this);
         this._formElement = this._popup.querySelector('form');
         this._inputList = this._popup.querySelectorAll('.popup__input');
+        this._sumbitButton = this._popup.querySelector('.popup__submit')
     }
     _getInputValues(){
         const data = {};
@@ -13,6 +14,14 @@ class PopupWithForm extends Popup{
         });
         return data;
     }
+    waitForFetch(wait){
+        const buttonText = this._sumbitButton.textContent;
+        if(wait){
+            this._sumbitButton.textContent += '...'
+        }else{
+            this._sumbitButton.textContent = buttonText.slice(0, (buttonText.length - 3))
+        }
+    };
     setEventListeners(){
         super.setEventListeners();
         this._formElement.addEventListener('submit', (evt) =>{

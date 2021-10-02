@@ -12,6 +12,13 @@ import PopupWithConfirm from '../components/PopupWithConfirm.js'
 import {editButton, addButton, formEdit, formAdd, nameInputEdit, descriptionInputEdit, cardTemplate, validationOptions, editAvatarButton, formAvatar} from '../utils/constants.js';
 
 let initialCards = []
+
+const addCardFormValidator = new FormValidator(validationOptions, formAdd);
+const editProfileFormValidator  = new FormValidator(validationOptions, formEdit);
+const editAvatarValidator = new FormValidator(validationOptions, formAvatar);
+const userInfoMethods = new UserInfo({nameSelector: '.profile__name', infoSelector: '.profile__description'}, '.profile', () => {});
+const popupTypeImage = new PopupWithImage('.popup-image');
+
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-28',
   headers: {
@@ -19,25 +26,18 @@ const api = new Api({
     'Content-Type': 'application/json'
   }
 });
-const addCardFormValidator = new FormValidator(validationOptions, formAdd);
-const editProfileFormValidator  = new FormValidator(validationOptions, formEdit);
-const editAvatarValidator = new FormValidator(validationOptions, formAvatar);
-const userInfoMethods = new UserInfo({nameSelector: '.profile__name', infoSelector: '.profile__description'}, '.profile', () => {});
-const popupTypeImage = new PopupWithImage('.popup-image');
 
 popupTypeImage.setEventListeners();
 
 
 function createCard(item) {
-    
     const cardElement = new Card({name: item.name, link: item.link}, cardTemplate, item, () => {popupTypeImage.open( item.link, item.name) }, (evt) => {
       const deletingCard = evt.target.closest('.elements__element');
       const popupTypeDelete = new PopupWithConfirm('.popup-delete', () => { deletingCard.remove(); api.deleteCard(item._id)})
       popupTypeDelete.setEventListeners()
       popupTypeDelete.open()
     }, userInfoMethods.getUserInfo().name,
-    
-    
+
     (liked) => {if(liked){
       api.deleteLike(item._id)
       return false
@@ -50,30 +50,44 @@ function createCard(item) {
     return cardElement.generateCard();
   } 
 
+function handleWaitForFetch(popupType, wait){
+  popupType.waitForFetch(wait)
+  if (!wait){
+    popupType.close()
+  }
+}
+
 const cardsList = new Section({items: initialCards, renderer: (item) => {
     cardsList.addItem(createCard(item))
 }},'.elements');
 
 api.getCards().then(res => {res.forEach(item => {
   cardsList.addItem(createCard(item), 'append');
-  
 })})
 
 const popupTypeEdit = new PopupWithForm('.popup_type_edit', ({popupName, popupDescription}) => {
     userInfoMethods.setUserInfo({name: popupName, about: popupDescription});
-    api.patchUserInfo(popupName, popupDescription)
-    popupTypeEdit.close();
+    api.patchUserInfo(popupName, popupDescription, (wait) => {handleWaitForFetch(popupTypeEdit, wait)})
 })
 const popupTypeAdd = new PopupWithForm('.popup_type_add', ({popupNameMesto, popupLinkMesto}) => {
-    cardsList.addItem(createCard({name: popupNameMesto, link: popupLinkMesto, likes: [], owner: {name: userInfoMethods.getUserInfo().name}}), 'prepend')
-    api.postNewCard(popupNameMesto, popupLinkMesto)
+    // cardsList.addItem(createCard({name: popupNameMesto, link: popupLinkMesto, likes: [], owner: {name: userInfoMethods.getUserInfo().name}}), 'prepend')
+    api.postNewCard(popupNameMesto, popupLinkMesto, (wait) => {handleWaitForFetch(popupTypeAdd, wait)
+     if(!wait){
+      api.getCards().then(res => {res.forEach(item => {
+        if((item.name === popupNameMesto) && (item.owner.name ===  userInfoMethods.getUserInfo().name)){
+          cardsList.addItem(createCard(item), 'prepend')
+        }
+      })})
+     }
+    })
     addCardFormValidator.disableSubmitButton();
-    popupTypeAdd.close();
 })
 const popupTypeAvatar = new PopupWithForm('.popup_type_avatar', ({popupLinkAvatar}) => {
   userInfoMethods.setAvatar(popupLinkAvatar);
-  api.patchAvatar(popupLinkAvatar);
-  popupTypeAvatar.close()
+  api.patchAvatar(popupLinkAvatar, (wait) => {
+    handleWaitForFetch(popupTypeAvatar, wait)
+  });
+  
 })
 
 

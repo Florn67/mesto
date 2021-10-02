@@ -18,10 +18,12 @@ class Api{
             })
             .catch((err) => {
                 console.log(err); 
-            }); 
+            });
+           
         
     }
-    patchAvatar(avatarUrl){
+    patchAvatar(avatarUrl, waitForFetch){
+        waitForFetch(true);
         fetch(`${this._baseUrl}/users/me/avatar`, {
             method: 'PATCH',
             headers: this._headers,
@@ -37,7 +39,10 @@ class Api{
             })
             .catch((err) => {
                 console.log(err); 
-            });  
+            })
+            .finally(() => {
+                waitForFetch(false)
+            });
     }
     getCards(){
         return fetch(`${this._baseUrl}/cards`, {
@@ -63,7 +68,8 @@ class Api{
             }); 
         
     }
-    patchUserInfo(name, about){
+    patchUserInfo(name, about, waitForFetch){
+        waitForFetch(true)
         fetch(`${this._baseUrl}/users/me`, {
             method: 'PATCH',
             headers: this._headers,
@@ -80,9 +86,13 @@ class Api{
             })
             .catch((err) => {
                 console.log(err); 
-            });  
+            })
+            .finally(() => {
+                waitForFetch(false)
+            });
     }
-   postNewCard(name, link){
+   postNewCard(name, link, waitForFetch){
+    waitForFetch(true)
     fetch(`${this._baseUrl}/cards`, {
         method: 'POST',
         headers: this._headers,
@@ -99,7 +109,10 @@ class Api{
         })
         .catch((err) => {
             console.log(err); 
-        });  
+        })
+        .finally(() => {
+            waitForFetch(false)
+        });
    }
    deleteCard(id){
        fetch(`${this._baseUrl}/cards/${id}`, {

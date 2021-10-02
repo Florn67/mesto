@@ -17,7 +17,6 @@ class Card{
     _setLikes(count){
         this._element.querySelector('.elements__like-counter').textContent = count;
         if (this._liked){
-        
             this._element.querySelector('.elements__like-button').classList.add('elements__like-button_liked')
         }
     }
@@ -30,20 +29,21 @@ class Card{
     _setEventListeners(){
         const _this = this;
         this._element.querySelector('.elements__like-button').addEventListener('click', function(evt){
+            let likeCountElement = evt.target.nextElementSibling
             if(_this._handleLikeClick(_this._liked)){
                 evt.target.classList.add('elements__like-button_liked');
+                likeCountElement.textContent = parseInt(likeCountElement.textContent) + 1;
                 _this._liked = true;
             }else{
                 evt.target.classList.remove('elements__like-button_liked');
+                likeCountElement.textContent = parseInt(likeCountElement.textContent) - 1;
                 _this._liked = false;
             };
-            // _this._requestLikeCount(_this._cardId).then(item => {_this._setLikes(item.length)})
         });
         this._element.querySelector('.elements__trash-button').addEventListener('click', this._handleDeleteConfirm)
         this._cardImage.addEventListener('click', this._handleCardClick);
     }
     _checkOwner(){
-        
         if(this._currentName !== this._owner){
             this._element.querySelector('.elements__trash-button').remove();
         }
